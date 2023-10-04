@@ -54,13 +54,13 @@ This is a simple Node.js server powered by Express and Prisma to manage notes. U
 
 The server uses Prisma with PostgreSQL as the database. The database has a single `Note` model:
 
-\```
+```
 model Note {
 id        Int      @default(autoincrement()) @id
 title     String
 content   String
 }
-\```
+```
 
 Each note has a unique `id`, a `title`, and `content`.
 
