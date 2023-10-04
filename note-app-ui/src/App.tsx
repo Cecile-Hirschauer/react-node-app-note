@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 export type Note = {
     id: number;
@@ -12,6 +12,7 @@ const App = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [selectedNote, setSelectedNote] = useState<Note | null>(null);
+
 
     const handleAddNote = (e: React.FormEvent) => {
         e.preventDefault();
@@ -26,6 +27,19 @@ const App = () => {
         setTitle('');
         setContent('');
     };
+
+    useEffect(() => {
+        const fetchNotes = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/notes');
+                const notes: Note[] = await response.json();
+                setNotes(notes);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fetchNotes();
+    }, []);
 
     const handleNoteClick = (note: Note) => {
         setSelectedNote(note)
